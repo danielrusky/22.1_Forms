@@ -1,6 +1,6 @@
 from django import forms
 
-from catalog.models import Product, Category, Version
+from catalog.models import Product, Category, Version, VersionCategory
 
 
 class StyleFormMixin:
@@ -43,7 +43,23 @@ class CategoryForm(StyleFormMixin, ProhibitedWordsMixin, forms.ModelForm):
         fields = '__all__'
 
 
-class VersionForm(StyleFormMixin, forms.ModelForm):
+class VersionForm(forms.ModelForm):
     class Meta:
         model = Version
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+
+class VersionCategoryForm(forms.ModelForm):
+    class Meta:
+        model = VersionCategory
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'

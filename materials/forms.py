@@ -7,4 +7,4 @@ class MaterialForm(forms.ModelForm):
 
     class Meta:
         model = Material
-        fields = ('title', 'body',)
+        fields = ('title', 'body', 'image',)
